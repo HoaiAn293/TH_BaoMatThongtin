@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encrypt / Decrypt Tool</title>
+    <style>
+        container{
+            width: 100%;
+            
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Encrypt Text</h1>
+        <form action="/encrypt" method="post">
+            <label>Plain Text:</label>
+            <input type="text" name="inputPlainText">
+            
+            <label>Key:</label>
+            <input type="number" name="inputKeyPlain">
+            
+            <button type="submit">Encrypt</button>
+        </form>
+    
+        <h1>Decrypt Text</h1>
+        <form action="/decrypt" method="post">
+            <label>Cipher Text:</label>
+            <input type="text" name="inputCipherText">
+            
+            <label>Key:</label>
+            <input type="number" name="inputKeyCipher">
+            
+            <button type="submit">Decrypt</button>
+        </form>
+    </div>
+</body>
+</html>
