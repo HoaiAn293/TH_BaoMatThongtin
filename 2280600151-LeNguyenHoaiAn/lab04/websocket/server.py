@@ -1,5 +1,6 @@
 import tornado.ioloop
 import tornado.websocket
+import tornado.web
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 import base64
@@ -28,8 +29,8 @@ class WebSocketServer(tornado.websocket.WebSocketHandler):
         return True
 
     def encrypt_message(self, message):
-        key = b"thisisaverysecret"       
-        iv = b"thisis16bytesiv"           
+        key = b"thisisaverysecre"    
+        iv = b"thisis16bytesiv!"      
         cipher = AES.new(key, AES.MODE_CBC, iv)
         padded = pad(message.encode(), AES.block_size)
         encrypted = cipher.encrypt(padded)

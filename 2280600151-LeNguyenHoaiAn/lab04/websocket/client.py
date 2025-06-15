@@ -92,8 +92,8 @@ class WebSocketClientUI:
             self._append_message(f" Decryption failed: {e}\n")
 
     def decrypt_message(self, encrypted_base64):
-        key = b"thisisaverysecret"      # 16 bytes key
-        iv = b"thisis16bytesiv"         # 16 bytes IV
+        key = b"thisisaverysecre"      
+        iv = b"thisis16bytesiv!"       
         encrypted_data = base64.b64decode(encrypted_base64)
         cipher = AES.new(key, AES.MODE_CBC, iv)
         decrypted_data = unpad(cipher.decrypt(encrypted_data), AES.block_size)

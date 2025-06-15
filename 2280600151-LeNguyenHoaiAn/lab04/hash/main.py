@@ -21,7 +21,7 @@ def calculate_sha3(input_string):
 def calculate_hash():
     input_string = input_entry.get()
     if not input_string.strip():
-        messagebox.showwarning("Warning", "Please enter a string to hash.")
+        messagebox.showwarning("Cảnh báo", "Vui lòng nhập chuỗi để mã hóa.")
         return
 
     selected_algorithm = algorithm_combobox.get()
@@ -32,44 +32,52 @@ def calculate_hash():
     elif selected_algorithm == "SHA-3":
         hash_result = calculate_sha3(input_string)
     else:
-        messagebox.showerror("Error", "Please select a valid hashing algorithm.")
+        messagebox.showerror("Lỗi", "Vui lòng chọn thuật toán hợp lệ.")
         return
 
-    result_label.config(text=f"Hash Result:\n{hash_result}")
+    result_text.config(state="normal")
+    result_text.delete(1.0, tk.END)
+    result_text.insert(tk.END, hash_result)
+    result_text.config(state="disabled")
 
-# Tạo giao diện
+# Giao diện
 root = tk.Tk()
 root.title("Hashing Algorithms")
-root.geometry("600x400")
+root.geometry("700x450")
 root.resizable(False, False)
-root.configure(bg="#f0f0f0")
+root.configure(bg="white")
 
-# Tiêu đề
-title_label = tk.Label(root, text="Hashing Algorithms", font=("Segoe UI", 20, "bold"), fg="#333", bg="#f0f0f0")
-title_label.pack(pady=20)
+title_label = tk.Label(root, text="🔐 Hash Generator", font=("Segoe UI", 22, "bold"), bg="white", fg="#2c3e50")
+title_label.pack(pady=15)
 
-# Chọn thuật toán băm
-algorithm_label = tk.Label(root, text="Select Hashing Algorithm:", font=("Segoe UI", 14), bg="#f0f0f0", fg="#333")
-algorithm_label.pack(pady=10)
+main_frame = tk.Frame(root, bg="white")
+main_frame.pack(pady=10)
 
-algorithm_combobox = ttk.Combobox(root, values=["MD5", "SHA-256", "SHA-3"], font=("Segoe UI", 12), state="readonly")
-algorithm_combobox.pack(pady=10)
-algorithm_combobox.set("MD5")  # Mặc định chọn MD5
+# Chọn thuật toán
+algorithm_label = tk.Label(main_frame, text="Thuật toán băm:", font=("Segoe UI", 14), bg="white", anchor="w")
+algorithm_label.grid(row=0, column=0, sticky="w", pady=5)
 
-# Ô nhập chuỗi
-input_label = tk.Label(root, text="Enter String to Hash:", font=("Segoe UI", 14), bg="#f0f0f0", fg="#333")
-input_label.pack(pady=10)
+algorithm_combobox = ttk.Combobox(main_frame, values=["MD5", "SHA-256", "SHA-3"], font=("Segoe UI", 12), state="readonly", width=20)
+algorithm_combobox.grid(row=0, column=1, padx=10, pady=5)
+algorithm_combobox.set("MD5")
 
-input_entry = tk.Entry(root, width=50, font=("Segoe UI", 12))
-input_entry.pack(pady=10)
+# Nhập chuỗi
+input_label = tk.Label(main_frame, text="Nhập chuỗi cần mã hóa:", font=("Segoe UI", 14), bg="white", anchor="w")
+input_label.grid(row=1, column=0, sticky="w", pady=10)
+
+input_entry = tk.Entry(main_frame, font=("Segoe UI", 12), width=50, bg="#f9f9f9", relief="solid", bd=1)
+input_entry.grid(row=1, column=1, padx=10, pady=10)
 
 # Nút tính toán
-calculate_button = tk.Button(root, text="Generate Hash", command=calculate_hash, font=("Segoe UI", 12), bg="#4CAF50", fg="white", relief=tk.RAISED, bd=2)
-calculate_button.pack(pady=10)
+calculate_button = tk.Button(root, text="Tạo mã băm", command=calculate_hash, font=("Segoe UI", 13), bg="#3498db", fg="white", padx=20, pady=5, relief="flat")
+calculate_button.pack(pady=15)
 
-# Nhãn hiển thị kết quả
-result_label = tk.Label(root, text="Hash Result: None", font=("Segoe UI", 12), fg="#333", wraplength=550, justify="left", bg="#f0f0f0")
-result_label.pack(pady=10)
+# Kết quả
+result_label = tk.Label(root, text="Kết quả mã hóa:", font=("Segoe UI", 14, "bold"), bg="white", fg="#2c3e50")
+result_label.pack(pady=(10, 5))
 
-# Chạy giao diện
+result_text = tk.Text(root, height=4, width=80, font=("Consolas", 12), wrap="word", bg="#f0f0f0", bd=1, relief="solid")
+result_text.pack()
+result_text.config(state="disabled")
+
 root.mainloop()
